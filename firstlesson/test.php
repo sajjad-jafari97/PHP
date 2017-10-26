@@ -1,3 +1,21 @@
+<?php
+include('lib/function.php');
+ini_set('display_errors', 1); // Errurs afichées dans la navigateur
+//if we put 1 at end it's gonna check all the errors
+// but if we put 0 it's not gonna check the errors
+ ?>
+
+ <?php
+// test de la function moyenne()
+
+echo moyenne([12, 8, 10]);// résultat attendut: 10
+echo moyenne([]);// résultat attendut: "Aucune note"
+echo moyenne([14]);// résultat attendut 14
+echo moyenne([13,6]);// résultat attendut: 19/2 = 9.5
+echo moyenne([13,6,1]);// résultat attendut: 20/3 = 6,66666...
+ ?>
+
+
 <p>HEY GUYS</p>
 <?php
 // PHP est un langage à type dynamique
@@ -18,7 +36,7 @@ echo gettype($v);
 $v = true; //  boolean
 echo gettype($v);
 
-$v2;
+$v2; //NULL
 echo gettype($v2);
 
 //opéraion sur integer
@@ -76,10 +94,10 @@ $juve = array($j1, $j2, $j3);
 
 // mis à jour du numéro de maillot du jouer Dybala
 // deux solutions
-$j1["maillot"] = 21;
-$juve[0]['mailliot'] = 21;
+// $j1['maillot'] = 21;
+$juve[0]['maillot'] = 21;
 
-echo $juve[0]['mailliot'];
+echo $juve[0]['maillot'];
 
 // structure itératives
 //boucle for
@@ -88,5 +106,25 @@ for($i =0; $i<sizeof($juve); $i++){
 echo '<li>'. $juve[$i]['prenom'] . " " . $juve[$i]['nom'] . '</li>';
 }
 echo '</ul>';
+
+//boucle while
+
+echo '<select>';
+$compteur = 0;
+while ($compteur < sizeof($juve)) {
+  echo '<option>' . $juve[$compteur]['maillot']. '</option>';
+  $compteur++;
+}
+echo '</select>';
+
+// boucle foreach
+foreach($juve as $j){
+  if ($j['maillot'] == 21) {
+    echo '<p style="color:red">' . $j['nom'] .'(meneur de jeu)</p>';
+  }else{
+    echo '<p>' . $j['nom'] . '</p>';
+  }
+}
+
 
  ?>
