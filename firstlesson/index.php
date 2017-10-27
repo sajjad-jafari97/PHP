@@ -15,13 +15,14 @@ $title = "Liste des stagiaires";
   include('header.php')
  ?>
     <h1><?php echo $title ?></h1>
-    <table>
+    <table class=" table-bordered col-md-7">
       <tr>
         <th>Prénom</th>
         <th>Nom</th>
         <th>Totem</th>
         <th>Derniere Note</th>
         <th>Moyenne de notes</th>
+
       </tr>
 
       <?php
@@ -51,6 +52,13 @@ $title = "Liste des stagiaires";
        ?>
 
     </table>
+
+
+    <aside class="col-md-5" style="background:red; height:auto">
+      <div class="" style="background:yellow; height:500px; margin:auto">
+
+      </div>
+    </aside>
 
 <?php
   include('footer.php')
