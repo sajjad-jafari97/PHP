@@ -7,6 +7,7 @@ $stagiaires = listeStagiaires();
 
 
 $title = "Liste des stagiaires";
+$title2 = " Les meilleures";
 
  ?>
 
@@ -33,7 +34,7 @@ $title = "Liste des stagiaires";
         echo '<tr>';
         echo '<td>'.'<a href="stagiaire_details.php?nom='.$s['prenom'].'">'. majusculeIntiale($s['prenom']).'</a>' .'</td>';
         echo '<td>'. majusculeIntiale($s['nom']).'</td>';
-        echo '<td><img src="img/'.$s['totem'] .'"> </td>';
+        echo '<td><img src="img/'.$s['totem'] .'" class="images"> </td>';
         // echo '<td>' . $s['notes'][2] . '</td>';
         echo '<td>'. derniereNote($s['notes']) .'</td>';
 
@@ -53,12 +54,27 @@ $title = "Liste des stagiaires";
 
     </table>
 
+     <h1 style="text-align:center"> <?php echo $title2 ?> </h1>
+    <table class="col-md-4 table-bordered " style=" height:auto; margin-left:50px">
 
-    <aside class="col-md-5" style="background:red; height:auto">
-      <div class="" style="background:yellow; height:500px; margin:auto">
+      <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Totem</th>
+        <th>Derniere Note</th>
+        <th>Moyenne de notes</th>
 
-      </div>
-    </aside>
+      </tr>
+      <?php
+      foreach($stagiaires as $s){
+        $moyenne = moyenne($s['notes'], 2);
+        
+      }
+       ?>
+
+
+
+    </table>
 
 <?php
   include('footer.php')
