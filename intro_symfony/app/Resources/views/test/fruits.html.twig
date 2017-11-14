@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+{% endblock %}
+
+
+{% block body %}
+<h1>{{ title }}</h1>
+
+
+<p>Message en provenance du controlleur : <strong>{{message}}</strong></p>
+
+<ul>
+  {% for fruit in fruits %}
+  <li>{{fruit}}</li>
+  {% endfor %}
+</ul>
+
+<select>
+  {% for f in fruits2%}
+<option>{{ f.name }}</option>
+{% endfor %}
+</select>
+
+
+<table class="table table-striped table-bordered">
+  {% for f in fruits2 %}
+  <tr>
+    <td>{{ f.name }}</td>
+    <td>{{ f.origin }}</td>
+    <td>
+      {% if not f.comestible %}<span style="color:red;">Non</span>{% endif %} comestible
+    </td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+<br>
+<table class="table table-striped table-bordered">
+
+  {% for f in fruits3 %}
+  <tr>
+    <td>{{ f.name }}</td>  <!-- both of the ways are working either like this one either like second one (down) -->
+    <td>{{ f.getOrigin() }}</td>
+
+
+<td>
+    {% if not f.comestible %}
+    <span class="not-comestible">Dangereux</span>
+    {%else%}
+    Aucun risque connu
+    {% endif %}
+    </td>
+
+    <td>
+      {% if f.wiki %}
+      <a href="{{f.wiki}}" target="_blank">Wiki</a>
+  {% else %}
+  <p style="color:red">Aucun article exist</p>
+      {% endif %}
+    </td>
+
+
+  </tr>
+
+  {% endfor %}
+
+</table>
+
+
+{% if toto %}
+<p style="color:green">Toto est vrai</p>
+{% else %}
+<p style="color:red">Toto n'est pas vrai (vaut false ou null)</p>
+  {% endif %}
+
+  {% endblock %}
