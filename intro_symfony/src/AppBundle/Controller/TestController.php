@@ -7,6 +7,11 @@
  use Symfony\Component\HttpFoundation\Response;
  use AppBundle\Classes\Fruit;
 
+/**
+* @Route("/test")
+*/
+
+
 class TestController extends Controller {
 
    private $message = "Petit message";
@@ -52,7 +57,7 @@ class TestController extends Controller {
 
 
    /**
-   *  @Route("/example")
+   *  @Route("/example", name="example_page")
    */
 
    public function exampleAction(){
@@ -77,7 +82,7 @@ class TestController extends Controller {
 
 
    /**
-   *  @Route("/fruits/list")
+   *  @Route("/fruits/static" )
    */
 
    public function fruitsListAction(){
@@ -89,7 +94,7 @@ class TestController extends Controller {
 
 
     /**
-    *  @Route("/fruits/static")
+    *  @Route("/fruit/dynamique")
     */
 
     public function  fruitsStaticAction(){
@@ -103,8 +108,12 @@ class TestController extends Controller {
 
 
 
+
+
+
+
 /**
-*  @Route("/fruits")
+*  @Route("/fruits" , name="fruits_page")
 */
 
 public function  fruitsAction(){
@@ -125,5 +134,20 @@ return $this->render('test/fruits.html.twig', array(
 
 ));
 }
+
+/**
+*  @Route("/fruits-comestibles" , name="fruits_comestibles_page")
+*/
+    public function fruitComestiblesAction(){
+      return $this->render('test/fruits-comestibles.html.twig', array(
+      'fruits' => $this->fruits3
+    ));
+    }
+
+
+
+
+
+
 
 }

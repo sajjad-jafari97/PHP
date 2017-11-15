@@ -16,7 +16,7 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         $v1 ="Toto";
 
-        echo $v1;
+        // echo $v1;
         return $this->render('default/index.html.twig');
     }
 
