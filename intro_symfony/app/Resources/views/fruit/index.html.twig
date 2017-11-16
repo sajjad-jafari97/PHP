@@ -39,7 +39,10 @@
 
     </td>
     <td>
+      <a href="{{ path('fruit_update', {'id':f.id}) }}" class="btn btn-primary btn-xs">Modifier</a>
+
       <a href="{{ path('fruit_delete', {'id':f.id}) }}" class="btn btn-danger btn-xs">Supprimer</a>
+
     </td>
   </tr>
   {% endfor %}

@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\AppBundle\Entity\Producer;
 
 /**
  * Fruit
@@ -45,8 +44,8 @@ class Fruit
 
         /**
          *
-         * @ORM\OneToOne(targetEntity=AppBundle\Entity\Producer)
          *
+         * 
          */
     private $producer;
 

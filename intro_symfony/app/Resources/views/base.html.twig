@@ -11,16 +11,57 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+        <style>
 
+
+        ul{
+          cursor: pointer;
+          list-style-type: none;
+
+        }
+
+          li:hover > ul.submenu{
+          display: block !important;
+
+
+          }
+
+
+
+            nav > ul > li{
+              position: absolute;
+            }
+
+
+          .submenu{
+            width: 150px;
+            display: none;
+            position: absolute;
+            top: 42px;
+          
+            background-color: #ccc;
+            padding: 8px;
+            border-radius: 6px
+          }
+
+
+        </style>
         {% block css %}{% endblock %}
     </head>
     <body>
       <nav>
         <ul class="nav nav-tabs">
           <li><a href="{{ path('homepage') }}">Accueil</a></li>
-          <li><a href="{{ path('fruits_page') }}">Fruits</a></li>
-          <li><a href="{{ path('example_page') }}">Example</a></li>
-          <li><a href="{{ path('fruits_comestibles_page') }}">Fruits-comestibles</a></li>
+          <li><a href="{{ path('fruit_admin_page') }}">Fruits</a></li>
+          <li >
+            <a href="#">Test</a>
+            <ul  class="submenu">
+              <li><a href="{{ path('fruits_page') }}">Fruits</a></li>
+              <li><a href="{{ path('fruits_comestibles_page') }}">Fruits-comestibles</a></li>
+              <li><a href="{{ path('example_page') }}">Example</a></li>
+            </ul>
+          </li>
+
 
         </ul>
       </nav>

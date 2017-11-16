@@ -41,11 +41,11 @@ class FruitController extends Controller {
       // utilisation du EntityManager
 
       $em = $this->getDoctrine()->getManager();
-      $em->persist($fruit); // prépare la réquête d'insertion
+      $em->persist($fruit); // prépare la r    return new Response("Id du fruits à supprimer" . $id);équête d'insertion
       // mais n'execute aucune requête sql
 
 
-      $em->flush(); //éxecute toutes les reqûetes SQL en attenete
+      $em->flush(); //éxecute toutes les reqûetes SQL en attente
 
     }
 
@@ -68,6 +68,53 @@ class FruitController extends Controller {
   public function deleteAction($id) {
     // l'argument $id correspond au paramètre {id}
     // défini au niveau de l'annotation @Route
-    return new Response("Id du fruits à supprimer" . $id);
+    $fruit = $this->getDoctrine()->getRepository(Fruit::class)->find($id);
+    $em = $this->getDoctrine()->getManager();
+    $em->remove($fruit); // requête de suppression en attente
+    $em->flush(); //éxecute toutes les reqûetes SQL en attente
+    return $this->redirectToRoute('fruit_admin_page');
+
+
+  }
+
+
+  /**
+  * @Route("/update/{id}", name="fruit_update")
+  */
+  public function updateAction($id, Request $request ){
+    //dans cette variante, l'objet fruit est crée sans le notifier
+    // au manager
+
+    // $fruits = $this
+    //  ->getDoctrine()
+    //  ->getRepository(Fruit::class)
+    //  ->find($id);
+
+    // Appeler getRepositorydepuis getManager établit une connexion
+    // une 'visibilité' entre le repo et le manager
+    // ici, le manager "est au courant", est notifié de l'existence de l'objet
+    // fruit, si cet objet change (reçoit de nouvelles valeurs)
+    // le manager le sait? Le manager "surveille" cet objet.
+    $em = $this->getDoctrine()->getManager();
+
+    $fruit = $em->getRepository(Fruit::class)->find($id);
+
+     if($request->getMethod() == 'POST'){
+
+       $fruit->setName($request->request->get('name'));
+       $fruit->setOrigin($request->request->get('origin'));
+
+       $comestible = ($request->request->get('comestible')) ? 1 : 0;
+       $fruit->setComestible($comestible);
+
+
+       $em->flush();
+       return $this->redirectToRoute('fruit_admin_page');
+     }
+
+
+     return $this->render('fruit/update.html.twig', array(
+           'fruit' => $fruit,
+     ));
   }
 }
