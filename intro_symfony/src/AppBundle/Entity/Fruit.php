@@ -1,10 +1,6 @@
 <?php
-
 namespace AppBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\AppBundle\Entity\Producer;
-
 /**
  * Fruit
  *
@@ -21,13 +17,13 @@ class Fruit
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
+
 
     /**
      * @var string
@@ -35,22 +31,25 @@ class Fruit
      * @ORM\Column(name="origin", type="string", length=255)
      */
     private $origin;
-
     /**
      * @var bool
      *
      * @ORM\Column(name="comestible", type="boolean")
      */
     private $comestible;
-
-        /**
-         *
-         * @ORM\OneToOne(targetEntity=AppBundle\Entity\Producer)
-         *
-         */
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Producer")
+     *
+     */
     private $producer;
 
-
+    /**
+    *
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Retailor",  mappedBy="fruit")
+    *
+    */
+      private $retailors;
 
     /**
      * Get id
@@ -61,10 +60,9 @@ class Fruit
     {
         return $this->id;
     }
-
     /**
      * Set name
-     *
+     *AppBundle\Entity\Producer
      * @param string $name
      *
      * @return Fruit
@@ -72,10 +70,8 @@ class Fruit
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
-
     /**
      * Get name
      *
@@ -85,7 +81,6 @@ class Fruit
     {
         return $this->name;
     }
-
     /**
      * Set origin
      *
@@ -96,10 +91,8 @@ class Fruit
     public function setOrigin($origin)
     {
         $this->origin = $origin;
-
         return $this;
     }
-
     /**
      * Get origin
      *
@@ -109,7 +102,6 @@ class Fruit
     {
         return $this->origin;
     }
-
     /**
      * Set comestible
      *
@@ -120,10 +112,8 @@ class Fruit
     public function setComestible($comestible)
     {
         $this->comestible = $comestible;
-
         return $this;
     }
-
     /**
      * Get comestible
      *
@@ -132,5 +122,71 @@ class Fruit
     public function getComestible()
     {
         return $this->comestible;
+    }
+
+
+    /**
+     * Set producer
+     *
+     * @param \AppBundle\Entity\Producer $producer
+     *
+     * @return Fruit
+     */
+    public function setProducer(\AppBundle\Entity\Producer $producer = null)
+    {
+        $this->producer = $producer;
+
+        return $this;
+    }
+
+    /**
+     * Get producer
+     *
+     * @return \AppBundle\Entity\Producer
+     */
+    public function getProducer()
+    {
+        return $this->producer;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->retailors = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add retailor
+     *
+     * @param \AppBundle\Entity\Retailor $retailor
+     *
+     * @return Fruit
+     */
+    public function addRetailor(\AppBundle\Entity\Retailor $retailor)
+    {
+        $this->retailors[] = $retailor;
+
+        return $this;
+    }
+
+    /**
+     * Remove retailor
+     *
+     * @param \AppBundle\Entity\Retailor $retailor
+     */
+    public function removeRetailor(\AppBundle\Entity\Retailor $retailor)
+    {
+        $this->retailors->removeElement($retailor);
+    }
+
+    /**
+     * Get retailors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRetailors()
+    {
+        return $this->retailors;
     }
 }

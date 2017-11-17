@@ -15,6 +15,19 @@
     <label for="comestible">Comestible</label>
     <input type="checkbox" name="comestible">
   </div>
+  <div class="form-group">
+
+    <select name="producer_id">
+
+    {% for p in producers %}
+
+    <option value="{{p.id}}">{{p.name}}</option>
+
+    {% endfor %}
+
+    </select>
+
+  </div>
   <input type="submit" name="submit" value="Enregisrer">
 </form>
 <hr>
@@ -24,7 +37,9 @@
   <th>Nom</th>
   <th>Origin</th>
   <th>Comestible</th>
+  <th>Producteur</th>
   <th>Action</th>
+  <th>Détaillants</th>
   </tr>
   {% for f in fruits %}
   <tr>
@@ -35,6 +50,27 @@
         Oui
         {% else %}
         Non
+      {% endif %}
+      <td>
+      {% if f.producer %}
+      {{f.producer.name}}
+      {% else %}
+      <p style="color:red">Aucun producer</p>
+      {% endif %}
+      </td>
+    </td>
+    <td>
+
+    {% if f.retailors | length > 0 %}
+
+      {% for r in f.retailors %}
+      <div>
+        {{r.name}}
+      </div>
+      {% endfor %}
+
+      {% else  %}
+        <p style="color:red">Aucun Détaillants</p>
       {% endif %}
 
     </td>

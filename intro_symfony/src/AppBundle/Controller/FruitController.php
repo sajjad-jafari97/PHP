@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Fruit;
+use AppBundle\Entity\Producer;
 
 /**
 * @Route("/fruits")
@@ -26,6 +27,11 @@ class FruitController extends Controller {
       $name = $post->get('name');
       $origin = $post->get('origin');
       $comestible = $post->get('comestible');
+      $producer_id = $post->get('producer_id');
+
+      // récupére l'objet producer complet à partir d'un id
+      $producer = $this->getDoctrine()->getRepository(Producer::class)->find($producer_id);
+
 
       //vérification du contenu de la variable $comestible
       $comestible = ($comestible) ? 1 : 0 ; //it's like if and else, if it's true it's one and else it's 0
@@ -36,12 +42,13 @@ class FruitController extends Controller {
       $fruit->setName($name);
       $fruit->setOrigin($origin);
       $fruit->setComestible($comestible);
+      $fruit->setProducer($producer);
 
 
       // utilisation du EntityManager
 
       $em = $this->getDoctrine()->getManager();
-      $em->persist($fruit); // prépare la r    return new Response("Id du fruits à supprimer" . $id);équête d'insertion
+      $em->persist($fruit); // prépare la ré    return new Response("Id du fruits à supprimer" . $id);équête d'insertion
       // mais n'execute aucune requête sql
 
 
@@ -57,8 +64,15 @@ class FruitController extends Controller {
      ->getRepository(Fruit::class)
      ->findAll();
 
+     // récupération des producers
+     $producers = $this
+      ->getDoctrine()
+      ->getRepository(Producer::class)
+      ->findAll();
+
     return $this->render('fruit/index.html.twig', array(
           'fruits' => $fruits,
+          'producers' => $producers,
     ));
   }
 
