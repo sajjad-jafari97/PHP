@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheetsBook %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+      <div class="container">
+      <header>
+      <nav >
+        <ul class="nav nav-tabs">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Book</a></li>
+          <li><a href="#">Author</a></li>
+
+        </ul>
+      </nav>
+        </header>
+
+        {% block body %}
+
+      {% endblock %}
+
+      </div>
+
+
+    </body>
+</html>
