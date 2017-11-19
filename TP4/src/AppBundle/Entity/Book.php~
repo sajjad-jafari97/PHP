@@ -125,3 +125,4 @@ class Book
         return $this->nbPages;
     }
 }
+

@@ -1,0 +1,33 @@
+{% extends "::base.html.twig" %}
+
+
+{% block body %}
+<div class="container" style="background:darkblue">
+  <h1 class="text-center" style="color:white">Ajouter Un Author</h1>
+</div>
+<div class="col-md-3" style="margin-top:20px">
+  {{form_start(form)}}
+ {{form_end(form)}}
+</div>
+  <div class="col-md-9" style="margin-top:20px">
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Origin</th>
+        <th>Action</th>
+      </tr>
+      {% for a in author %}
+      <tr>
+        <td>{{a.firstname}}</td>
+        <td>{{a.lastname}}</td>
+        <td>{{a.origin}}</td>
+        <td>
+          <a href="{{path('author_delete', {'id':a.id})}}" class="btn btn-danger btn-xs">Supprimer</a>
+          <a href="{{path('author_update', {'id':a.id})}}" class="btn btn-primary btn-xs">Modifier</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}

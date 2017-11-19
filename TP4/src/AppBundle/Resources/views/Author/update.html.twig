@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+
+{% block body %}
+<form class=""  method="post">
+  <input type="text" name="firstname" value="{{author.firstname}}">
+  <input type="text" name="lastname" value="{{author.lastname}}">
+  <input type="text" name="origin" value="{{author.origin}}">
+  <input type="submit" name="Enregistrer" value="OK">
+</form>
+{% endblock %}

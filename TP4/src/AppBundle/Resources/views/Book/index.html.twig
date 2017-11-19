@@ -3,11 +3,14 @@
 {% block title %}AppBundle:Book:index{% endblock %}
 
 {% block body %}
-<div class="col-md-3">
+<div class="container" style="background:darkblue">
+  <h1 class="text-center" style="color:white">Ajouter Un Livre</h1>
+</div>
+<div class="col-md-3" style="margin-top:20px">
   {{form_start(form)}}
  {{form_end(form)}}
 </div>
-  <div class="col-md-9">
+  <div class="col-md-9" style="margin-top:20px">
     <table class="table table-striped table-bordered">
       <tr>
         <th>Title</th>

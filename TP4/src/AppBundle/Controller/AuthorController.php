@@ -8,28 +8,28 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use AppBundle\Entity\Book;
+use AppBundle\Entity\Author;
 
 
 /**
- * @Route("/book")
+ * @Route("/author", name="")
  */
 
-class BookController extends Controller
+class AuthorController extends Controller
 {
     /**
-     * @Route("/index" , name="book_index")
+     * @Route("/index" , name="author_index")
      */
     public function indexAction( Request $request)
     {
 
-       $books = $this->getDoctrine()->getRepository(Book::class)->findAll();
+       $authors = $this->getDoctrine()->getRepository(Author::class)->findAll();
 
-        $book = new Book();
-        $form = $this->createFormBuilder($book)
-        ->add('title', TextType::class)
-        ->add('isbn', TextType::class)
-        ->add('nbPages', NumberType::class)
+        $author = new Author();
+        $form = $this->createFormBuilder($author)
+        ->add('firstname', TextType::class)
+        ->add('lastname', TextType::class)
+        ->add('origin', TextType::class)
         ->add('submit', SubmitType::class, array(
               'label' => 'Enregistrer',
         ))
@@ -38,16 +38,16 @@ class BookController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
-          $book = $form->getData();
+          $author = $form->getData();
           $em = $this->getDoctrine()->getManager();
-          $em->persist($book);
+          $em->persist($author);
           $em->flush();
-          return $this->redirectToRoute('book_index');
+          return $this->redirectToRoute('author_index');
         }
 
 
-        return $this->render('AppBundle:Book:index.html.twig', array(
-           'books' => $books,
+        return $this->render('AppBundle:Author:index.html.twig', array(
+           'author' => $authors,
            'form' => $form->createView(),
         ));
     }
@@ -61,31 +61,31 @@ class BookController extends Controller
 
 
 
-        return $this->render('AppBundle:Book:add.html.twig', array(
+        return $this->render('AppBundle:Author:add.html.twig', array(
             // ...
         ));
     }
 
     /**
-     * @Route("/delete{id}" , name="book_delete")
+     * @Route("/delete{id}" , name="author_delete")
      */
     public function deleteAction($id)
     {
 
-        $book = $this->getDoctrine()->getRepository(Book::class)->find($id);
+        $author = $this->getDoctrine()->getRepository(Author::class)->find($id);
         $em = $this->getDoctrine()->getManager();
-        $em->remove($book);
+        $em->remove($author);
         $em->flush();
-        return $this->redirectToRoute('book_index');
+        return $this->redirectToRoute('author_index');
 
     }
 
     /**
-     * @Route("/update{id}", name="book_update")
+     * @Route("/update{id}", name="author_update")
      */
     public function updateAction($id, Request $request){
         $em = $this->getDoctrine()->getManager();
-        $book = $em->getRepository(Book::class)->find($id);
+        $author = $em->getRepository(Author::class)->find($id);
 
 
       //   $form = $this->createFormBuilder()
@@ -100,16 +100,16 @@ class BookController extends Controller
 
         if ($request->getMethod() == 'POST'){
 
-          $book->setTitle($request->request->get('title'));
-          $book->setIsbn($request->request->get('isbn'));
-          $book->setNbPages($request->request->get('NbPages'));
+          $author->setFirstname($request->request->get('firstname'));
+          $author->setLastname($request->request->get('lastname'));
+          $author->setOrigin($request->request->get('origin'));
           $em->flush();
-          return $this->redirectToRoute('book_index');
+          return $this->redirectToRoute('author_index');
         };
 
 
-        return $this->render('AppBundle:Book:update.html.twig', array(
-          'book' => $book,
+        return $this->render('AppBundle:Author:update.html.twig', array(
+          'author' => $author,
           //'form' => $form->createView(),
 
         ));
