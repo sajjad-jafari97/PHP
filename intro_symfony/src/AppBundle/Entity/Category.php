@@ -3,15 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Producer
+ * Category
  *
- * @ORM\Table(name="producer")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ProducerRepository")
+ * @ORM\Table(name="category")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  */
-class Producer
+class Category
 {
     /**
      * @var int
@@ -26,20 +25,8 @@ class Producer
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     *@Assert\Length(min="3")
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     *@Assert\Email(
-     * message="Email incorrect"
-     *)
-     */
-
-    private $email;
 
 
     /**
@@ -57,7 +44,7 @@ class Producer
      *
      * @param string $name
      *
-     * @return Producer
+     * @return Category
      */
     public function setName($name)
     {
@@ -75,28 +62,5 @@ class Producer
     {
         return $this->name;
     }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Producer
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
 }
+

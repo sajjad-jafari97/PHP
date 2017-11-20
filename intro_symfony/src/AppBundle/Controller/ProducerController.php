@@ -1,13 +1,15 @@
 <?php
 
-namespace AppBundle\Controller; 
+namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Producer;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/producer")
@@ -35,6 +37,7 @@ class ProducerController extends Controller
         // en pur PHP OO (pas de balise HTML)
         $form = $this->createFormBuilder($producer)
         ->add('name', TextType::class)
+        ->add('email', TextType::class)
         ->add('sumbit', SubmitType::class, array(
           'label' => 'Enregister',
         ))
@@ -50,9 +53,23 @@ class ProducerController extends Controller
         // équivalent de $request->getMethod() lorsqu'on utilise
         //l'objet Request $request
 
-        if($form->isSubmitted()){
+          
+        if($form->isSubmitted() && $form->isValid()){
           //hydratation automatique grâce à getData()
           $producer = $form->getData();
+
+          // $str_len = strlen($producer->getName());
+          // $min = 3;
+          // $max = 10;
+          // $cond1 = $str_len >= $min;
+          // $cond2 = $str_len <= $max;
+          // $total_cond = $cond1 && $cond2;
+          // $message = "Le nom du producer doit avoir";
+          // $message .= "au moins " . $min ." caractères";
+          // $message .= "et pas plus " . $max ." caractèrs";
+          //
+          // if(!$total_cond) return new Response($message);
+
 
           //enregistement en bas de données
           $em = $this->getDoctrine()->getManager();
@@ -84,6 +101,17 @@ class ProducerController extends Controller
     {
         return $this->render('AppBundle:Producer:delete.html.twig', array(
             // ...
+        ));
+    }
+
+    /**
+     * @Route("/{id}", name="producer_details")
+     */
+    public function detailsAction($id)
+    {
+      $producer = $this->getDoctrine()->getRepository(Producer::class)->find($id);
+        return $this->render('AppBundle:Producer:details.html.twig', array(
+          'producer' => $producer
         ));
     }
 
