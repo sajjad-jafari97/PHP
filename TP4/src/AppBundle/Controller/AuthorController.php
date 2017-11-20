@@ -12,7 +12,7 @@ use AppBundle\Entity\Author;
 
 
 /**
- * @Route("/author", name="")
+ * @Route("/author")
  */
 
 class AuthorController extends Controller

@@ -125,4 +125,3 @@ class Author
         return $this->origin;
     }
 }
-
