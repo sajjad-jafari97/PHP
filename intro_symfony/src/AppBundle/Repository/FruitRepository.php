@@ -12,4 +12,16 @@ class FruitRepository extends \Doctrine\ORM\EntityRepository
 {
   // nous ajouterons ici nos méthodes personnalisées de
   // récupération de données
+
+  public function findByCategoryName($name) {
+    $query =
+    'SELECT f FROM AppBundle:Fruit f';
+    // Il faut trouve un moyen de cibler la propriété .name des objets
+    // de type Category situés à l'intérieur du tabealu f.category
+
+    return $this->getEntityManager()
+    ->createQuery($query)
+    ->getResult();
+
+  }
 }

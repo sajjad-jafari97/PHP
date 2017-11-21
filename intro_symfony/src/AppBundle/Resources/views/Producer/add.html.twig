@@ -4,8 +4,36 @@
 
 {% block body %}
 <h2>Ajouter d'un producteur</h2>
+
+<!-- https://symfony.com/doc/current/form/rendering.html -->
+
    {{ form_start(form) }}
-  
+
+  <div class="form-group">
+    {{ form_label(form.email) }}
+    {{ form_errors(form.email) }}
+    {{ form_widget(form.email, {'attr': {'class' : 'perso', 'placeholder': message,
+    'style' : 'border: 2px ' ~ color ~' dotted'}}) }}
+  </div>
+
+    <div class="form-group">
+      {{ form_label(form.name, 'Nom') }}
+      {{ form_errors(form.name) }}
+      {{ form_widget(form.name) }}
+    </div>
+
+        <div class="form-group">
+          {{ form_label(form.logo)}}
+          {{ form_widget(form.logo) }}
+        </div>
+
+
+    <div class="form-group">
+      {{ form_label(form.submit) }}
+      {{ form_widget(form.submit, {'attr': {'class' :'btn btn-primary',}}) }}
+    </div>
+
+
 
   {{ form_end(form) }}
 {% endblock %}

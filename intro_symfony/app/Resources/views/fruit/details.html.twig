@@ -1,4 +1,17 @@
 {% extends 'base.html.twig' %}
+
+{% block css %}
+<style >
+
+
+.logo{
+  width: 150px;
+  height: 150px;
+
+}
+</style>
+{% endblock %}
+
 {% block body %}
 
 <h3>{{ fruit.name }}</h3>
@@ -24,7 +37,11 @@
         <strong>Producteur : </strong>
         <a href="{{path('producer_details' , {'id': fruit.producer.id})}}">
         {{fruit.producer.name}}
+
         </a>
+        {% if fruit.producer.logo %}
+          <img class="logo" src="{{asset('/img/logo/') ~ fruit.producer.logo }}" alt="">
+          {% endif %}
         {% endif %}
       </div>
 

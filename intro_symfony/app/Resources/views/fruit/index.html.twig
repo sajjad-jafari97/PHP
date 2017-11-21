@@ -4,6 +4,8 @@
 {% block body %}
 
 <h2>Fruits</h2>
+
+  <button class="btn btn-success" type="button" id="btnHideForm">Masquer le formulaire</button>
 <form class="form-inline well" method="post">
   <div class="form-group">
     <input type="text" name="name" placeholder="Nom">
@@ -94,6 +96,8 @@
     </td>
     <td>
       <a href="{{ path('fruit_details', {'id':f.id}) }}" class="btn btn-default btn-xs">Détails</a>
+
+
 
       <a href="{{ path('fruit_update', {'id':f.id}) }}" class="btn btn-primary btn-xs">Modifier</a>
 

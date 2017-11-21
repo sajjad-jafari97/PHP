@@ -75,7 +75,7 @@ class FruitController extends Controller {
 
     }
 
-    // récupération des fruits
+    // Récupération des fruits
     // Fruit::class retourne chemin + nom de la class
     // .get repository pour les opération de lecture
     $fruits = $this
@@ -83,11 +83,11 @@ class FruitController extends Controller {
      ->getRepository(Fruit::class)
      ->findAll();
 
-     // récupération des producers
+     // Récupération des producteurs
      $producers = $this
       ->getDoctrine()
       ->getRepository(Producer::class)
-      ->findAll();
+      ->findAllNotAssigned();
       // récupération des category
       $categories = $this
        ->getDoctrine()
@@ -172,4 +172,31 @@ class FruitController extends Controller {
         'fruit' => $fruit
       ));
   }
+
+  /**
+  * @Route("/category/{name}")
+  */
+
+  public function nameAction($name){
+    $fruit = $this->getDoctrine()
+    ->getRepository(Fruit::class)
+    ->findByCategoryName($name);
+
+      return $this->render('fruit/category_name.html.twig', array(
+        'fruit' => $fruit,
+        'name' => $name
+      ));
+
+  }
+
+  /**
+  * @Route("/api/json")
+  */
+  // conversiion du tableau PHP en chaine de caractères JSON
+  public function jsonAction(){
+    $fruit = ['pomme', 'poire', 'cerise'];
+    $fruit_json = json_encode($fruit);
+    return new Response($fruit_json);
+  }
+
 }

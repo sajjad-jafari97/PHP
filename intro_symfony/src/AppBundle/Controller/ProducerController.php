@@ -1,11 +1,12 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller; 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Producer;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,9 +37,10 @@ class ProducerController extends Controller
         // la méthod createFormBuilder permet de créer un formulaire
         // en pur PHP OO (pas de balise HTML)
         $form = $this->createFormBuilder($producer)
-        ->add('name', TextType::class)
-        ->add('email', TextType::class)
-        ->add('sumbit', SubmitType::class, array(
+        ->add('name', TextType::class, array())
+        ->add('email', TextType::class, array())
+        ->add('logo', FileType::class, array('label' => 'Choisir un logo'))
+        ->add('submit', SubmitType::class, array(
           'label' => 'Enregister',
         ))
         ->getForm();
@@ -53,10 +55,22 @@ class ProducerController extends Controller
         // équivalent de $request->getMethod() lorsqu'on utilise
         //l'objet Request $request
 
-          
-        if($form->isSubmitted() && $form->isValid()){
+
+        if($form->isSubmitted() && $form->isValid()
+        ){
           //hydratation automatique grâce à getData()
           $producer = $form->getData();
+          $file = $producer->getLogo(); // récuperation de l'objet UploadedFile
+          // placé dans la prpriété logo du producer
+          $filename = 'logo_' . strtolower($producer->getName()) . '.' .$file->guessExtension();
+          // getParameter ('key') récupère la valeur d'une clé définié dans
+          // le fichier config.yml
+          // move(dossier_de_destination, nom_du_fichier)
+          $file->move($this->getParameter('dir_logo'),$filename);
+
+          // mis a jout de la propriété logo de $producer
+          $producer->setLogo($filename);
+
 
           // $str_len = strlen($producer->getName());
           // $min = 3;
@@ -75,12 +89,14 @@ class ProducerController extends Controller
           $em = $this->getDoctrine()->getManager();
           $em->persist($producer);
           $em->flush();
-        return $this->redirectToRoute('producer_index');
+          return $this->redirectToRoute('producer_index');
         }
 
 
         return $this->render('AppBundle:Producer:add.html.twig', array(
-          'form' => $form->createView()
+          'form' => $form->createView(),
+          'message' => 'Simple text',
+          'color' => 'blue'
         ));
     }
 
